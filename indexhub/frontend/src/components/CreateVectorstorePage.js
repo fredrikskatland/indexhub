@@ -48,13 +48,13 @@ export default class CreateVectorstorePage extends Component {
         const formData = new FormData();
         formData.append('title', this.state.title);
         formData.append('description', this.state.description);
-        formData.append('owner', this.state.owner);
         formData.append('published', this.state.published);
         formData.append('media_file', this.state.media_file); // Add the file
     
         axios.post('/api/createvectorstore', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Replace 'token' with the key you used to store the token
             }
         })
         .then(response => {
@@ -95,6 +95,7 @@ export default class CreateVectorstorePage extends Component {
                                     label="Title"
                                     value={this.state.title}
                                     onChange={this.handleInputChange}
+                                    fullWidth 
                                 />
                             </Grid>
                             <Grid item xs={12} align="center">
@@ -103,14 +104,7 @@ export default class CreateVectorstorePage extends Component {
                                     label="Description"
                                     value={this.state.description}
                                     onChange={this.handleInputChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} align="center">
-                                <TextField
-                                    name="owner"
-                                    label="Owner"
-                                    value={this.state.owner}
-                                    onChange={this.handleInputChange}
+                                    fullWidth 
                                 />
                             </Grid>
                             <Grid item xs={12} align="center">
@@ -122,9 +116,10 @@ export default class CreateVectorstorePage extends Component {
                                     type="file"
                                     name="media_file"
                                     onChange={this.handleFileChange}
+                                    fullWidth 
                                 />
                                 <label htmlFor="raised-button-file">
-                                    <Button variant="contained" color="primary" component="span">
+                                    <Button variant="contained" color="primary" component="span" fullWidth >
                                         Upload File
                                     </Button>
                                 </label>

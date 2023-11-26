@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext  } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { AuthContext } from './AuthContext'; // Import AuthProvider
 
 
-const Header = () => (
+const Header = () => {
+  const { isAuthenticated, username, logout } = useContext(AuthContext);
+  return (
     <Box
       sx={{
         width: '100%',
@@ -36,7 +39,29 @@ const Header = () => (
           Create
         </Button>
       </Box>
+      <Box>
+        {!isAuthenticated ? (
+          <>
+            <Button color="inherit" component={RouterLink} to="/login" sx={{ marginRight: '1rem' }}> {/* Add margin to the right */}
+              Login
+            </Button>
+            <Button color="inherit" component={RouterLink} to="/register" sx={{ marginRight: '1rem' }}> {/* Add margin to the right */}
+              Register
+            </Button>
+          </>
+        ) : (
+          <>
+            <Typography color="inherit" sx={{ marginRight: '1rem' }}>
+              Hi {username}
+            </Typography>
+            <Button color="inherit" onClick={logout} sx={{ marginRight: '1rem' }}>
+              Logout
+            </Button>
+          </>
+        )}
+      </Box>
     </Box>
   );
+};
 
-  export default Header;
+export default Header;

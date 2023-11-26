@@ -20,7 +20,7 @@ class VectorStore(models.Model):
     code  = models.CharField(max_length=12, default=generate_unique_code_vectorstore, unique=True)
     title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=200)
-    owner = models.CharField(max_length=50)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vectorstores')
     createdon = models.DateTimeField(auto_now_add=True)
     updatedon = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
@@ -28,6 +28,15 @@ class VectorStore(models.Model):
 
     def get_absolute_media_url(self):
         return f"{settings.MEDIA_URL}vectorstore_databases/{self.media_url}"
+    
+class FileMetadata(models.Model):
+    filename = models.CharField(max_length=200)
+    filesize = models.IntegerField()
+    filehash = models.CharField(max_length=200)
+    createdon = models.DateTimeField(auto_now_add=True)
+    updatedon = models.DateTimeField(auto_now=True)
+    vectorstore = models.ForeignKey(VectorStore, on_delete=models.CASCADE)
+    metadatafields = models.CharField(max_length=200, default="")
 
 class Users(models.Model):
     username = models.CharField(max_length=50, unique=True)

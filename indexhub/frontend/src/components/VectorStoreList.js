@@ -15,6 +15,9 @@ import Typography from '@mui/material/Typography'
 import Header from './Header'
 import Footer from './Footer'
 
+import { Link } from 'react-router-dom';
+
+
 export default class VectorStoreList extends Component {
     constructor(props) {
         super(props);
@@ -81,6 +84,7 @@ export default class VectorStoreList extends Component {
                                     <TableCell>Updated On</TableCell>
                                     <TableCell>Published</TableCell>
                                     <TableCell>Download</TableCell>
+                                    <TableCell>Link</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -105,6 +109,11 @@ export default class VectorStoreList extends Component {
                                                 'No File'
                                             )}
                                         </TableCell>
+                                        <TableCell>
+                                        <Link to={`/details/${vectorStore.id}`}>
+                                            View details
+                                        </Link>
+                                    </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
