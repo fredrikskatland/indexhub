@@ -28,5 +28,6 @@
     "@mui/material": "^5.14.17",
     "axios": "^1.6.1",
     "react-router-dom": "^6.18.0"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

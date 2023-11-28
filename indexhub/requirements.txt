@@ -1,0 +1,9 @@
+django==4.2.7
+langchain==0.0.334
+psycopg2==2.9.9
+gunicorn
+djangorestframework
+djangorestframework-simplejwt
+chromadb
+dj-database-url==2.1.0
+whitenoise==6.6.0
